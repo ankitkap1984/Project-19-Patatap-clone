@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Play Sounds Animations	
+		</title>
+		<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="js/lib/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/lib/paper-full.min.js"></script>		
+		<script type="text/javascript" src="js/lib/howler.min.js"></script>		
+		<script type="text/paperscript" canvas="myCanvas">
+		
+		var keyData={
+			a: {color:"purple", sound: new Howl({
+				src: ['sounds/bubbles.mp3']
+  			})},
+			b: {color:"red", sound: new Howl({
+				src: ['sounds/clay.mp3']
+  			})},
+			c: {color:"yellow", sound: new Howl({
+				src: ['sounds/confetti.mp3']
+  			})},
+			d: {color:"green", sound: new Howl({
+				src: ['sounds/corona.mp3']
+  			})},
+			e: {color:"blue", sound: new Howl({
+				src: ['sounds/dotted-spiral.mp3']
+  			})},
+			f: {color:"white", sound: new Howl({
+				src: ['sounds/flash-1.mp3']
+  			})},
+			g: {color:"pink", sound: new Howl({
+				src: ['sounds/flash-2.mp3']
+  			})},
+			h: {color:"violet", sound: new Howl({
+				src: ['sounds/flash-3.mp3']
+  			})},
+			i: {color:"brown", sound: new Howl({
+				src: ['sounds/glimmer.mp3']
+  			})},
+			j: {color:"indigo", sound: new Howl({
+				src: ['sounds/moon.mp3']
+  			})},
+			k: {color:"purple", sound: new Howl({
+				src: ['sounds/pinwheel.mp3']
+  			})},
+			l: {color:"grey", sound: new Howl({
+				src: ['sounds/piston-1.mp3']
+  			})},
+			m: {color:"brown", sound: new Howl({
+				src: ['sounds/piston-2.mp3']
+  			})},
+			n: {color:"blue", sound: new Howl({
+				src: ['sounds/piston-3.mp3']
+  			})},
+			o: {color:"green", sound: new Howl({
+				src: ['sounds/prism-1.mp3']
+  			})},
+			p: {color:"red", sound: new Howl({
+				src: ['sounds/prism-2.mp3']
+  			})},
+			q: {color:"cyan", sound: new Howl({
+				src: ['sounds/prism-3.mp3']
+  			})},
+			r: {color:"lightblue", sound: new Howl({
+				src: ['sounds/splits.mp3']
+  			})},
+			s: {color:"pink", sound: new Howl({
+				src: ['sounds/squiggle.mp3']
+  			})},
+			t: {color:"brown", sound: new Howl({
+				src: ['sounds/strike.mp3']
+  			})},
+			u: {color:"red", sound: new Howl({
+				src: ['sounds/suspension.mp3']
+  			})},
+			v: {color:"green", sound: new Howl({
+				src: ['sounds/timer.mp3']
+  			})},
+			w: {color:"yellow", sound: new Howl({
+				src: ['sounds/ufo.mp3']
+  			})},
+			x: {color:"blue", sound: new Howl({
+				src: ['sounds/veil.mp3']
+  			})},
+			y: {color:"red", sound: new Howl({
+				src: ['sounds/wipe.mp3']
+  			})},
+			z: {color:"black", sound: new Howl({
+				src: ['sounds/zig-zag.mp3']
+  			})}
+		}
+						
+			// Create a Paper.js Path to draw a line into it:
+			var path = new Path();
+			// Give the stroke a color
+			// path.strokeColor = 'red';
+			// var start = new Point(100, 100);
+			// Move to start and draw a line from there
+			// path.moveTo(start);
+			// Note the plus operator on Point objects.
+			// PaperScript does that for us, and much more!
+			// path.lineTo(start + [ 100, -50 ]);
+			
+			/*var radius=5;
+			var x=0;
+			var y=5;
+			for (j=0;j<=9;j++){
+			for (i=0;i<=9;i++){
+			console.log(i);
+			var myCircle = new Path.Circle(new Point(x, y), radius);
+			myCircle.fillColor = 'purple';
+			x=x+50;			
+			}
+			var x=0;
+			y=y+50;
+			};*/
+			
+			var colorCirclesAll=[];
+			function onKeyDown(event) {
+			// When a key is pressed, set the content of the text item:
+				/*var myCircle = new Path.Circle(new Point(44, 44), 6);
+				myCircle.fillColor = 'purple';
+				console.log(view.size.width);
+				console.log(view.size.height);
+				
+				var maxPoint=new Point(view.size.width, view.size.height);
+				var myCircle = new Path.Circle(maxPoint, 20);
+				myCircle.fillColor = 'yellow';*/
+
+				if (keyData[event.key]){
+				var maxPoint=new Point(view.size.width, view.size.height);
+				var randomPoint=Point.random();
+				var totalPoint=maxPoint*randomPoint;
+				var myCircle = new Path.Circle(totalPoint, 400);
+				myCircle.fillColor = keyData[event.key].color;
+				keyData[event.key].sound.play();
+				colorCirclesAll.push(myCircle);}
+				//console.log(colorCirclesAll);
+				
+				
+			};
+		
+			
+			function onFrame(event) {
+				// Each frame, change the fill color of the path slightly by
+				// adding 1 to its hue:
+				for (u=0;u<colorCirclesAll.length;u++){
+				colorCirclesAll[u].fillColor.hue += 8;
+				colorCirclesAll[u].scale(0.95);
+				}
+			};
+			
+		</script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+	<body>
+		<canvas id="myCanvas" resize></canvas>
+	</body>
+</html>
